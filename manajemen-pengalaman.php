@@ -5,7 +5,7 @@ require_once('koneksi/auth.php');
 
 onlyAdmin();
 
-$query = "SELECT * FROM experience ORDER BY id DESC";
+$query = "SELECT * FROM penglaman ORDER BY id DESC";
 $result = mysqli_query($connectDb, $query);
 ?>
 <!DOCTYPE html>
@@ -49,8 +49,10 @@ $result = mysqli_query($connectDb, $query);
                         <thead>
                             <tr>
                                 <th scope="col">No.</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Tools</th>
+                                <th scope="col">Nama Perusahaan</th>
+                                <th scope="col">Jabatan</th>
+                                <th scope="col">Tahun Mulai</th>
+                                <th scope="col">Tahun Akhir</th>
                                 <th>#</th>
                             </tr>
                         </thead>
@@ -60,8 +62,10 @@ $result = mysqli_query($connectDb, $query);
                         while ($data = mysqli_fetch_array($result)) : ?>
                             <tr>
                                 <td><?= $no; ?></th>
-                                <td><?= $data['title']; ?></td>
-                                <td><?= $data['tools']; ?></td>
+                                <td><?= $data['nama_perusahaan']; ?></td>
+                                <td><?= $data['jabatan']; ?></td>
+                                <td><?= $data['mulai']; ?></td>
+                                <td><?= $data['akhir']; ?></td>
                                 <td>
                                     <a href="experience-edit.php?id=<?= $data['id']; ?>" class="btn btn-outline-primary">Edit</a>
                                     <a href="experience-delete.php?id=<?= $data['id']; ?>" class="btn btn-danger">Hapus</a>

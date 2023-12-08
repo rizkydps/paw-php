@@ -68,9 +68,18 @@ require_once('koneksi/auth.php');
           
         </ul>
         <?php if(checkLogin()) : ?>
-                <a href="admin.php" class="nav-link">Admin</a>
+                <a href="admin.php" style="background: #FF9900;
+  padding: 10px 35px;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 4px;" class="btn btn-contact">Admin</a>
             <?php else: ?>
-                <a href="login.php" class="nav-link">Login</a>
+                <a href="login.php" style="background: #FF9900;
+  padding: 10px 35px;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 4px;" class="btn btn-contact">Login</a>
+                
             <?php endif; ?>
         <img src="assets/img/moon.png" id="icon">
       </div>
@@ -289,25 +298,25 @@ require_once('koneksi/auth.php');
             <div class="col-lg-6 py-3">
               <h3>Pengalaman</h3>
                   <?php
-                $queryExp = "SELECT * FROM experience ORDER BY id ASC";
+                $queryExp = "SELECT * FROM penglaman ORDER BY id ASC";
                 $resultExp = mysqli_query($connectDb, $queryExp);
                 
                 while ($data = mysqli_fetch_array($resultExp)) : ?>
                   <div class="resume-item">
-                    <h4><?= $data['title']; ?></h4>
+                    <h4><?= $data['nama_perusahaan']; ?></h4>
                     <span><?php 
-                    $startDate = $data['date_start'];
+                    $startDate = $data['mulai'];
                     echo date("Y", strtotime($startDate));
                     ?>
                     -
                     <?php 
-                    $startEnd = $data['date_end'];
+                    $startEnd = $data['akhir'];
                     echo date("Y", strtotime($startEnd));
                     ?>   
                   </span>
-                    <h5><?= $data['tools']; ?></h5>
+                    <h5><?= $data['jabatan']; ?></h5>
                     <p>
-                    <?= $data['description']; ?>
+                    <?= $data['deskripsi']; ?>
                     </p>
                   </div>
                   <?php endwhile; ?>

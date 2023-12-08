@@ -1,12 +1,13 @@
 <?php
-session_start();
-require_once('koneksi/database.php');
-require_once('koneksi/auth.php');
+    require_once('koneksi/database.php');
 
+    $id = $_GET['id'];
+    $query = "SELECT * FROM penglaman WHERE id='{$id}'";
+    $result = mysqli_query($connectDb, $query);
+    $data = mysqli_fetch_array($result);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,115 +34,114 @@ require_once('koneksi/auth.php');
   <link rel="stylesheet" href="assets/styles/main.css">
 
   </head>
+  <body>
+    
 
-<body>
-
-<?php include('layout/navbar.php'); ?>
-
-
-<div class="admin-container py-4">
+    <div class="admin-container py-4">
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h3>Tambah <span class="text-primary"> Experience</span></h3>
+                    <h3>Edit <span class="text-primary"> User</span></h3>
                     <a href="manajemen-pengalaman.php" class="btn btn-outline-primary">kembali</a>
                     
                     <form
                         autocomplete="off"
-                        action="experience-save.php"
+                        action="experiance-update.php"
                         method="post"
                         class="needs-validation mt-4"
                         novalidate
                       >
+                      <input type="hidden" name="id" value="<?= $data['id']; ?>" />
                         <div class="row mb-4">
-                          <div class="col-lg-6">
+                          <div class="col-lg-8">
                             <input
                               class="form-control"
                               type="text"
                               id="nama_perusahaan"
                               name="nama_perusahaan"
-                              placeholder="nama_perusahaan Job"
+                              placeholder="nama_perusahaan"
+                              value="<?= $data['nama_perusahaan']; ?>"
                               required
                             />
-                            <div class="invalid-feedback">Please input your nama_perusahaan job</div>
+                            <div class="invalid-feedback">Please input your nama perusahaan</div>
                           </div>
                         </div>
                         <div class="row mb-4">
-                          <div class="col-lg-6">
+                          <div class="col-lg-8">
                             <input
                               class="form-control"
                               type="text"
                               id="jabatan"
                               name="jabatan"
-                              placeholder="jabatan Job"
+                              placeholder="jabatan"
+                              value="<?= $data['jabatan']; ?>"
                               required
                             />
-                            <div class="invalid-feedback">Please input your nama_perusahaan job</div>
+                            <div class="invalid-feedback">Please input your jabatan</div>
                           </div>
                         </div>
-                        
                         <div class="row mb-4">
-                          <div class="col-lg-6">
+                          <div class="col-lg-8">
                             <input
-                              class="form-control start-datepicker"
-                              type="text"
+                              class="form-control"
+                              type="number"
                               id="mulai"
                               name="mulai"
-                              placeholder="Date Start"
+                              placeholder="mulai"
+                              value="<?= $data['mulai']; ?>"
                               required
                             />
-                            <div class="invalid-feedback">Please input Date Start</div>
-                          </div>
-                          <div class="col-lg-6">
-                            <input
-                              class="form-control end-datepicker"
-                              type="text"
-                              id="akhir"
-                              name="akhir"
-                              placeholder="Date End"
-                              required
-                            />
-                            <div class="invalid-feedback">Please input Date End</div>
+                            <div class="invalid-feedback">Please input your tahun mulai</div>
                           </div>
                         </div>
                         <div class="row mb-4">
-                          <div class="col">
-                            <textarea class="form-control" name="deskripsi" id="description" rows="5" placeholder="Description" required></textarea>
-                            <div class="invalid-feedback">Please input your description</div>
+                          <div class="col-lg-8">
+                            <input
+                              class="form-control"
+                              type="number"
+                              id="akhir"
+                              name="akhir"
+                              placeholder="akhir"
+                              value="<?= $data['akhir']; ?>"
+                              required
+                            />
+                            <div class="invalid-feedback">Please input your tahun akhir</div>
+                          </div>
+                        </div>
+                        <div class="row mb-4">
+                          <div class="col-lg-8">
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="deskripsi"
+                              name="deskripsi"
+                              placeholder="deskripsi"
+                              value="<?= $data['deskripsi']; ?>"
+                              required
+                            />
+                            <div class="invalid-feedback">Please input your deskripsi</div>
                           </div>
                         </div>
                         <button class="btn btn-primary" type="submit">
-                          Tambah
+                          Edit
                         </button>
                       </form>
                 </div>
             </div>
         </div>  
-    </div>
+    </div> 
+       
 
-
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
     <script type="text/javascript">
-        const startPicker = datepicker('.start-datepicker', {
-            formatter: (input, date, instance) => {
-                const value = dayjs(date)
-                input.value = value.format('YYYY-MM-DD') // => '1/1/2099'
-            }
-        })
-        const endPicker = datepicker('.end-datepicker',  {
-            formatter: (input, date, instance) => {
-                const value = dayjs(date)
-                input.value = value.format('YYYY-MM-DD') // => '1/1/2099'
-            }
-        })
         ;(() => {
         'use strict'
 
@@ -164,9 +164,9 @@ require_once('koneksi/auth.php');
           )
         })
       })()
-    </script>
-</body>
-
+    </script>   
+    
+  </body>
 </html>
 <?php 
     mysqli_close($connectDb);
